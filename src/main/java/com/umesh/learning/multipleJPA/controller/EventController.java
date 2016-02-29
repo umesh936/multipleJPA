@@ -2,9 +2,9 @@ package com.umesh.learning.multipleJPA.controller;
 
 import javax.annotation.Resource;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,8 +27,8 @@ public class EventController {
 		return event;
 	}
 	
-	@RequestMapping(value = { "/event" }, method = RequestMethod.GET)
-	public Object getLoginPage(@RequestParam("eid") String eid) {
+	@RequestMapping(value = { "/{eid}" }, method = RequestMethod.GET)
+	public Object getLoginPage(@PathVariable("eid") String eid) {
 		Event event = eventService.getEventById(Integer.parseInt(eid));
 		return event;
 	}
