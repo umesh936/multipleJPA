@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -24,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 		"com.umesh.learning.multipleJPA.model",
 		"com.umesh.learning.multipleJPA.repository" })
 
-@EnableTransactionManagement
+//@EnableTransactionManagement
 public class MultipleJPAConfiguration extends WebMvcConfigurerAdapter {
 	@Bean
 	public ViewResolver viewResolver() {
@@ -43,7 +42,7 @@ public class MultipleJPAConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("/css/")
-				.setCachePeriod(0);// 31556926);
+				.setCachePeriod(0);
 		registry.addResourceHandler("/images/**")
 				.addResourceLocations("/images/").setCachePeriod(31556926);
 		registry.addResourceHandler("/js/**").addResourceLocations("/js/")

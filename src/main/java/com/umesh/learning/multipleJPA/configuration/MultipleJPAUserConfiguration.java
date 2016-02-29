@@ -12,14 +12,14 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebMvc
 @EnableJpaRepositories(basePackages = "com.umesh.learning.multipleJPA.repository", entityManagerFactoryRef = "userEntityManager", transactionManagerRef = "userTransactionManager")
 //@EnableTransactionManagement
-public class MultipleJPAUserConfiguration extends MultipleJPAConfiguration {
+public class MultipleJPAUserConfiguration extends MultipleJPAConfiguration implements TransactionManagementConfigurer {
 
 	@Bean(name = "dataSource")
 	public DataSource getDataSource() {
@@ -56,8 +56,9 @@ public class MultipleJPAUserConfiguration extends MultipleJPAConfiguration {
 		return lef;
 	}
 
+
 	@Bean(name="userTransactionManager")
-	public PlatformTransactionManager userTransactionManager() {
+	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		JpaTransactionManager tm = new JpaTransactionManager();
 		tm.setEntityManagerFactory(userEntityManager(getDataSource(),
 				jpaVendorAdapterUser()).getObject());
