@@ -29,7 +29,7 @@ public class MultipleJPAEventConfiguration {
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/eventTest");
 		dataSource.setUsername("root");
-		dataSource.setPassword("root123");
+		dataSource.setPassword("xxxxx");
 		dataSource.setMaxActive(5);
 		return dataSource;
 	}

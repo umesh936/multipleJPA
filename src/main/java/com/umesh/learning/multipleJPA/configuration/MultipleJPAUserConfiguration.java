@@ -29,7 +29,7 @@ public class MultipleJPAUserConfiguration {
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/userTest");
 		dataSource.setUsername("root");
-		dataSource.setPassword("root123");
+		dataSource.setPassword("xxxxxx");
 		dataSource.setMaxActive(5);
 		return dataSource;
 	}

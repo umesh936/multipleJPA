@@ -88,31 +88,4 @@ public class MultipleJPAConfiguration extends WebMvcConfigurerAdapter {
 		return adaptor;
 	}
 
-	/*
-	 * @Bean(name = "dataSourceEvent") public DataSource getDataSourceEvent() {
-	 * BasicDataSource dataSource = new BasicDataSource();
-	 * dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	 * dataSource.setUrl("jdbc:mysql://localhost:3306/eventTest");
-	 * dataSource.setUsername("root"); dataSource.setPassword("root123");
-	 * dataSource.setMaxActive(5); return dataSource; }
-	 * 
-	 * @Bean(name = "eventEntityManager") public EntityManager
-	 * userEntityManager() { return
-	 * eventEntityManagerFactory().createEntityManager(); }
-	 * 
-	 * @Bean(name = "eventEntityManagerFactory") public EntityManagerFactory
-	 * eventEntityManagerFactory() { LocalContainerEntityManagerFactoryBean lef
-	 * = new LocalContainerEntityManagerFactoryBean();
-	 * lef.setDataSource(getDataSourceEvent());
-	 * lef.setJpaVendorAdapter(jpaVendorAdapter()); lef.setPackagesToScan(new
-	 * String[] { "com.umesh.learning.multipleJPA.model.event" });
-	 * lef.setPersistenceUnitName("event"); lef.afterPropertiesSet(); return
-	 * lef.getObject(); }
-	 * 
-	 * @Bean(name = "eventTransactionManager") public PlatformTransactionManager
-	 * eventTransactionManager() { JpaTransactionManager tm = new
-	 * JpaTransactionManager( (EntityManagerFactory)
-	 * eventEntityManagerFactory()); return tm; }
-	 */
-
 }
