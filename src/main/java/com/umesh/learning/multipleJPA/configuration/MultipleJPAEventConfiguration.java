@@ -5,32 +5,23 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.umesh.learning.multipleJPA.repository.event"}, entityManagerFactoryRef = "eventEntityManagerFactory", transactionManagerRef = "eventTransactionManager")
+@EnableJpaRepositories(basePackages = { "com.umesh.learning.multipleJPA.repository.event" }, entityManagerFactoryRef = "eventEntityManagerFactory", transactionManagerRef = "eventTransactionManager")
 @EnableTransactionManagement
 public class MultipleJPAEventConfiguration {
 
-	@Bean
-	public JpaVendorAdapter jpaVendorAdapter() {
-		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-		jpaVendorAdapter.setDatabase(Database.MYSQL);
-		jpaVendorAdapter.setGenerateDdl(true);
-		jpaVendorAdapter.setShowSql(true);
-		jpaVendorAdapter
-				.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
-		return jpaVendorAdapter;
-	}
+	@Autowired
+	JpaVendorAdapter jpaVendorAdapter;
 
 	@Bean(name = "dataSourceEvent")
 	public DataSource getDataSourceEvent() {
@@ -43,16 +34,16 @@ public class MultipleJPAEventConfiguration {
 		return dataSource;
 	}
 
-	 @Bean(name = "eventEntityManager")
-	    public EntityManager userEntityManager() {
-	        return eventEntityManagerFactory().createEntityManager();
-	    }
-	
+	@Bean(name = "eventEntityManager")
+	public EntityManager userEntityManager() {
+		return eventEntityManagerFactory().createEntityManager();
+	}
+
 	@Bean(name = "eventEntityManagerFactory")
 	public EntityManagerFactory eventEntityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
 		lef.setDataSource(getDataSourceEvent());
-		lef.setJpaVendorAdapter(jpaVendorAdapter());
+		lef.setJpaVendorAdapter(jpaVendorAdapter);
 		lef.setPackagesToScan(new String[] { "com.umesh.learning.multipleJPA.model.event" });
 		lef.setPersistenceUnitName("event");
 		lef.afterPropertiesSet();
