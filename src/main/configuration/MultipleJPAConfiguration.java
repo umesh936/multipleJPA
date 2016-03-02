@@ -5,6 +5,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -21,15 +24,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.umesh.learning.multipleJPA.controller",
 		"com.umesh.learning.multipleJPA.services",
-		"com.umesh.learning.multipleJPA.model.user",
-		"com.umesh.learning.multipleJPA.model.event",
-		"com.umesh.learning.multipleJPA.repository.event",
-		"com.umesh.learning.multipleJPA.repository.user" })
+		"com.umesh.learning.multipleJPA.model",
+		"com.umesh.learning.multipleJPA.repository.user",
+		"com.umesh.learning.multipleJPA.repository.event" })
 @EnableTransactionManagement
-//@EnableJpaRepositories(basePackages = {"com.umesh.learning.multipleJPA.repository.event"}, entityManagerFactoryRef = "eventEntityManagerFactory", transactionManagerRef = "eventTransactionManager")
 public class MultipleJPAConfiguration extends WebMvcConfigurerAdapter {
-/*
+
 	@Bean
+	public HibernateExceptionTranslator hibernateExceptionTranslator() {
+		return new HibernateExceptionTranslator();
+	}
+
+	@Bean(name = "jpaVendorAdapter")
 	public JpaVendorAdapter jpaVendorAdapter() {
 		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
 		jpaVendorAdapter.setDatabase(Database.MYSQL);
@@ -38,13 +44,6 @@ public class MultipleJPAConfiguration extends WebMvcConfigurerAdapter {
 		jpaVendorAdapter
 				.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
 		return jpaVendorAdapter;
-	}*/
-
-	
-	
-	@Bean
-	public HibernateExceptionTranslator hibernateExceptionTranslator() {
-		return new HibernateExceptionTranslator();
 	}
 
 	@Bean
@@ -90,38 +89,4 @@ public class MultipleJPAConfiguration extends WebMvcConfigurerAdapter {
 		return adaptor;
 	}
 
-	/*@Bean(name = "dataSourceEvent")
-	public DataSource getDataSourceEvent() {
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/eventTest");
-		dataSource.setUsername("root");
-		dataSource.setPassword("root123");
-		dataSource.setMaxActive(5);
-		return dataSource;
-	}
-
-	 @Bean(name = "eventEntityManager")
-	    public EntityManager userEntityManager() {
-	        return eventEntityManagerFactory().createEntityManager();
-	    }
-	
-	@Bean(name = "eventEntityManagerFactory")
-	public EntityManagerFactory eventEntityManagerFactory() {
-		LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
-		lef.setDataSource(getDataSourceEvent());
-		lef.setJpaVendorAdapter(jpaVendorAdapter());
-		lef.setPackagesToScan(new String[] { "com.umesh.learning.multipleJPA.model.event" });
-		lef.setPersistenceUnitName("event");
-		lef.afterPropertiesSet();
-		return lef.getObject();
-	}
-
-	@Bean(name = "eventTransactionManager")
-	public PlatformTransactionManager eventTransactionManager() {
-		JpaTransactionManager tm = new JpaTransactionManager(
-				(EntityManagerFactory) eventEntityManagerFactory());
-		return tm;
-	}*/
-	
 }

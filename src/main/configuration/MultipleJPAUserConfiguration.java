@@ -5,33 +5,25 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories(basePackages = { "com.umesh.learning.multipleJPA.repository.user" }, entityManagerFactoryRef = "userEntityManagerFactory", transactionManagerRef = "userTransactionManager")
+@EnableJpaRepositories(basePackages = "com.umesh.learning.multipleJPA.repository.user", entityManagerFactoryRef = "userEntityManagerFactory", transactionManagerRef = "userTransactionManager")
 @EnableTransactionManagement
-public class MultipleJPAUserConfiguration {
+public class MultipleJPAUserConfiguration  {
 
-	@Bean
-	public JpaVendorAdapter jpaVendorAdapter() {
-		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-		jpaVendorAdapter.setDatabase(Database.MYSQL);
-		jpaVendorAdapter.setGenerateDdl(true);
-		jpaVendorAdapter.setShowSql(true);
-		jpaVendorAdapter
-				.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
-		return jpaVendorAdapter;
-	}
 
+	 @Autowired
+	    JpaVendorAdapter jpaVendorAdapter;
+	
 	@Bean(name = "dataSourceUser")
 	public DataSource getDataSourceUser() {
 		BasicDataSource dataSource = new BasicDataSource();
@@ -42,27 +34,26 @@ public class MultipleJPAUserConfiguration {
 		dataSource.setMaxActive(5);
 		return dataSource;
 	}
+	 @Bean(name = "userEntityManager")
+	    public EntityManager entityManager() {
+	        return userEntityManagerFactory().createEntityManager();
+	    }
+	
 
-	@Bean(name = "userEntityManager")
-	public EntityManager userEntityManager() {
-		return userEntityManagerFactory().createEntityManager();
-	}
-
-	@Bean(name = "userEntityManagerFactory")
+	@Bean(name="userEntityManagerFactory")
 	public EntityManagerFactory userEntityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
 		lef.setDataSource(getDataSourceUser());
-		lef.setJpaVendorAdapter(jpaVendorAdapter());
-		lef.setPackagesToScan(new String[] { "com.umesh.learning.multipleJPA.model.user" });
+		lef.setJpaVendorAdapter(jpaVendorAdapter);
+		lef.setPackagesToScan(new String[] { "com.umesh.learning.multipleJPA.model" });
 		lef.setPersistenceUnitName("user");
-		lef.afterPropertiesSet();
 		return lef.getObject();
 	}
 
-	@Bean(name = "userTransactionManager")
+
+	@Bean(name="userTransactionManager")
 	public PlatformTransactionManager userTransactionManager() {
-		JpaTransactionManager tm = new JpaTransactionManager(
-				(EntityManagerFactory) userEntityManagerFactory());
+		JpaTransactionManager tm = new JpaTransactionManager((EntityManagerFactory) userEntityManagerFactory());
 		return tm;
 	}
 }

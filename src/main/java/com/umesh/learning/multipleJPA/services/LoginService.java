@@ -7,11 +7,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.umesh.learning.multipleJPA.model.User;
-import com.umesh.learning.multipleJPA.repository.UserRepository;
+import com.umesh.learning.multipleJPA.model.user.User;
+import com.umesh.learning.multipleJPA.repository.user.UserRepository;
 
 @Service
-@Transactional("userTransactionManager")
+@Transactional(value= "userTransactionManager")
 public class LoginService {
 
 	@Resource

@@ -1,4 +1,4 @@
-package com.umesh.learning.multipleJPA.model;
+package com.umesh.learning.multipleJPA.model.event;
 
 import static javax.persistence.GenerationType.IDENTITY;
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.umesh.learning.multipleJPA.model.Event;
+import com.umesh.learning.multipleJPA.model.event.Event;
 import com.umesh.learning.multipleJPA.services.EventService;
 
 @RestController
@@ -26,11 +26,11 @@ public class EventController {
 		event = eventService.saveEvent(event);
 		return event;
 	}
-	
+
 	@RequestMapping(value = { "/{eid}" }, method = RequestMethod.GET)
 	public Object getLoginPage(@PathVariable("eid") String eid) {
+		System.out.println(" Event ID  "+ eid);
 		Event event = eventService.getEventById(Integer.parseInt(eid));
 		return event;
 	}
-
 }

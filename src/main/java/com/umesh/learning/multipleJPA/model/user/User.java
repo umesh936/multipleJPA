@@ -1,4 +1,4 @@
-package com.umesh.learning.multipleJPA.model;
+package com.umesh.learning.multipleJPA.model.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

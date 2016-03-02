@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+  <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern"
+        value="%d{dd MMM yyyy HH:mm:ss,SSS} %-10t [%-5p]    %-50c{2} %x - %m%n" />
+    </layout>
+  </appender>
+  <appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
+    <param name="Threshold" value="TRACE" />
+    <param name="File" value="${user.home}/multipleJPA/LogFile.log" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d  %-5p  [%c{1}] %m %n" />
+    </layout>
+  </appender>
+
+  <logger name="org.springframework">
+    <level value="debug"/>
+  </logger>
+  <root>
+    <priority value="error" />
+    <appender-ref ref="fileAppender" />
+    <appender-ref ref="ConsoleAppender" />
+  </root>
+</log4j:configuration>
