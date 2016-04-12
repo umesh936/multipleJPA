@@ -3,7 +3,7 @@
 
 	<groupId>com.umesh.learning</groupId>
 	<artifactId>multipleJPA</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>multipleJPA</name>
@@ -21,7 +21,7 @@
 		<url>https://github.com/umesh936//multipleJPA.git</url>
 		<connection>scm:git:git://github.com/umesh936/multipleJPA.git</connection>
 		<developerConnection>scm:git:git@github.com:umesh936/multipleJPA.git</developerConnection>
-	  <tag>multipleJPA-0.0.4</tag>
+	  <tag>multipleJPA-0.0.3</tag>
   </scm>
 
 
